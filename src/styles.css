@@ -1,0 +1,430 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* ── Custom animation keyframes ─────────────────────────── */
+  --animate-fade-in-up: fade-in-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.4s ease both;
+  --animate-scale-in: scale-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-slide-in-right: slide-in-right 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-glow: pulse-glow 2.5s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.8s ease-in-out infinite;
+
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes slide-in-right {
+    from { opacity: 0; transform: translateX(-18px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 18px oklch(0.82 0.15 200 / 0.35); }
+    50%       { box-shadow: 0 0 36px oklch(0.82 0.15 200 / 0.65); }
+  }
+  --animate-pulse-ring: pulse-ring 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes pulse-ring {
+    0%, 100% {
+      box-shadow: 0 0 0 0px oklch(0.82 0.18 90 / 0.7),
+                  0 0 24px oklch(0.82 0.18 90 / 0.45);
+    }
+    50% {
+      box-shadow: 0 0 0 8px oklch(0.82 0.18 90 / 0),
+                  0 0 42px oklch(0.82 0.18 90 / 0.7);
+    }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+}
+
+:root {
+  --radius: 0.625rem;
+  /* Synapse dark theme */
+  --background: oklch(0.16 0.015 260);
+  --foreground: oklch(0.97 0.01 260);
+  --card: oklch(0.21 0.018 260);
+  --card-foreground: oklch(0.97 0.01 260);
+  --popover: oklch(0.21 0.018 260);
+  --popover-foreground: oklch(0.97 0.01 260);
+  --primary: oklch(0.78 0.16 210);
+  --primary-foreground: oklch(0.16 0.015 260);
+  --secondary: oklch(0.26 0.02 260);
+  --secondary-foreground: oklch(0.97 0.01 260);
+  --muted: oklch(0.24 0.018 260);
+  --muted-foreground: oklch(0.68 0.02 260);
+  --accent: oklch(0.7 0.18 310);
+  --accent-foreground: oklch(0.16 0.015 260);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.97 0.01 260);
+  --border: oklch(0.3 0.02 260);
+  --input: oklch(0.26 0.02 260);
+  --ring: oklch(0.78 0.16 210);
+  /* Synapse brand */
+  --brand-cyan: oklch(0.82 0.15 200);
+  --brand-purple: oklch(0.65 0.22 305);
+  --gradient-brand: linear-gradient(90deg, oklch(0.82 0.15 200), oklch(0.65 0.22 305));
+  --gradient-bg: radial-gradient(ellipse at 20% 40%, oklch(0.28 0.08 320 / 0.4), transparent 50%),
+                 radial-gradient(ellipse at 60% 70%, oklch(0.28 0.1 200 / 0.3), transparent 55%),
+                 oklch(0.13 0.012 260);
+  --bg-app: oklch(0.13 0.005 260);
+  --bg-panel: oklch(0.17 0.006 260);
+  --bg-sidebar: oklch(0.10 0.008 260);
+  --shadow-glow: 0 0 40px oklch(0.7 0.18 220 / 0.35);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-primary: oklch(0.208 0.042 265.755);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.704 0.04 256.788);
+}
+
+.dark {
+  --background: oklch(0.16 0.015 260);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.208 0.042 265.755);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 450;
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  /* Smooth transitions on theme change */
+  *, *::before, *::after {
+    transition-property: background-color, border-color, color, box-shadow;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+  }
+
+  /* Preserve animation durations — only theme props transition */
+  *[style*="animation"] {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Boost muted / secondary text so it reads clearly */
+  .text-muted-foreground {
+    font-weight: 500;
+  }
+
+  /* Small and extra-small text — bump to medium so it doesn't feel thin */
+  .text-xs,
+  .text-sm {
+    font-weight: 500;
+  }
+
+  /* Placeholder text */
+  ::placeholder {
+    font-weight: 450;
+  }
+
+  /* Nav / label caps that use tracking-widest tend to look thin */
+  .tracking-widest,
+  .tracking-wider,
+  [class*="tracking-\\["] {
+    font-weight: 500;
+  }
+
+  /* Smooth link transitions */
+  a {
+    transition: color 0.2s ease, opacity 0.2s ease;
+  }
+
+  /* Smooth input focus transitions */
+  input, textarea, select {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    font-weight: 450;
+  }
+
+  /* Respect user's motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ── Light theme ──────────────────────────────────────────────── */
+.light {
+  --background: oklch(0.97 0.008 80);     /* warm cream */
+  --foreground: oklch(0.14 0.02 50);
+  --card: oklch(0.985 0.006 78);          /* warm card */
+  --card-foreground: oklch(0.14 0.02 50);
+  --popover: oklch(0.985 0.006 78);
+  --popover-foreground: oklch(0.14 0.02 50);
+  --primary: oklch(0.55 0.18 210);
+  --primary-foreground: oklch(0.97 0.008 80);
+  --secondary: oklch(0.93 0.012 75);      /* warm off-white */
+  --secondary-foreground: oklch(0.18 0.02 50);
+  --muted: oklch(0.93 0.010 78);
+  --muted-foreground: oklch(0.42 0.025 55);
+  --accent: oklch(0.88 0.06 310);
+  --accent-foreground: oklch(0.14 0.02 50);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.97 0.008 80);
+  --border: oklch(0.87 0.015 75);         /* warm border */
+  --input: oklch(0.91 0.010 78);
+  --ring: oklch(0.55 0.18 210);
+  /* Main content area — warm cream */
+  --bg-app: oklch(0.96 0.010 78);
+  --bg-panel: oklch(0.985 0.007 76);
+  /* Sidebar stays dark always */
+  --bg-sidebar: oklch(0.09 0.008 260);
+  --shadow-glow: 0 0 40px oklch(0.55 0.18 210 / 0.15);
+}
+
+/* ── Sidebar always dark, even in light mode ──────────────────── */
+.light aside {
+  background: oklch(0.09 0.008 260) !important;
+  border-color: oklch(0.22 0.02 260) !important;
+  color: oklch(0.93 0.01 260);
+}
+
+/* Sidebar text: white by default */
+.light aside span,
+.light aside div,
+.light aside p,
+.light aside button,
+.light aside a {
+  color: oklch(0.93 0.01 260);
+}
+
+/* Sidebar muted text */
+.light aside .text-muted-foreground {
+  color: oklch(0.58 0.02 260) !important;
+}
+
+/* Sidebar nav hover and cards */
+.light aside .hover\:bg-card\/40:hover,
+.light aside .hover\:bg-card\/60:hover {
+  background: oklch(0.18 0.015 260) !important;
+}
+
+/* Sidebar inner cards / profile card / progress widget */
+.light aside [class*="bg-card"] {
+  background: oklch(0.16 0.015 260) !important;
+}
+
+/* Sidebar borders */
+.light aside [class*="border-border"] {
+  border-color: oklch(0.26 0.02 260) !important;
+}
+
+/* Active nav item keeps brand cyan */
+.light aside a[class*="text-\[oklch"] {
+  color: oklch(0.82 0.15 200) !important;
+}
+
+/* Brand gradient button stays the same */
+.light aside a[style*="gradient-brand"] {
+  color: oklch(0.09 0.008 260) !important;
+}
+
+/* ── Template page cards: keep dark in light mode ──────────────── */
+/*
+ * Cards use inline style backgrounds like oklch(0.19 0.012 260).
+ * Force white text on any dark-background card inside <main>.
+ */
+
+/* Tailwind bg-card/* classes */
+.light main [class*="bg-card\/3"],
+.light main [class*="bg-card\/4"],
+.light main [class*="bg-card\/5"],
+.light main [class*="bg-card\/6"],
+.light main [class*="bg-card\/7"],
+.light main [class*="bg-card\/8"] {
+  background-color: oklch(0.17 0.014 260 / 0.92) !important;
+  color: oklch(0.93 0.01 260) !important;
+}
+
+.light main [class*="bg-card\/3"] *,
+.light main [class*="bg-card\/4"] *,
+.light main [class*="bg-card\/5"] *,
+.light main [class*="bg-card\/6"] *,
+.light main [class*="bg-card\/7"] *,
+.light main [class*="bg-card\/8"] * {
+  color: oklch(0.93 0.01 260);
+}
+
+/*
+ * Inline style backgrounds: oklch(0.19...) oklch(0.18...) oklch(0.2...)
+ * These are the actual card/bubble backgrounds set by template components.
+ */
+.light main [style*="oklch(0.19"] {
+  color: oklch(0.93 0.01 260) !important;
+}
+.light main [style*="oklch(0.19"] * {
+  color: oklch(0.93 0.01 260);
+}
+.light main [style*="oklch(0.18"] {
+  color: oklch(0.93 0.01 260) !important;
+}
+.light main [style*="oklch(0.18"] * {
+  color: oklch(0.93 0.01 260);
+}
+.light main [style*="oklch(0.2 0"] {
+  color: oklch(0.93 0.01 260) !important;
+}
+.light main [style*="oklch(0.2 0"] * {
+  color: oklch(0.93 0.01 260);
+}
+/* color-mix() cards use a dark base oklch(0.19...) */
+.light main [style*="color-mix"] {
+  color: oklch(0.93 0.01 260) !important;
+}
+.light main [style*="color-mix"] * {
+  color: oklch(0.93 0.01 260);
+}
+
+/* Muted text inside dark cards — readable grey */
+.light main [style*="oklch(0.19"] .text-muted-foreground,
+.light main [style*="oklch(0.18"] .text-muted-foreground,
+.light main [style*="color-mix"] .text-muted-foreground,
+.light main [class*="bg-card\/"] .text-muted-foreground {
+  color: oklch(0.60 0.02 260) !important;
+}
+
+/* Borders inside dark cards */
+.light main [style*="oklch(0.19"] [class*="border-border"],
+.light main [style*="oklch(0.18"] [class*="border-border"],
+.light main [class*="bg-card\/"] [class*="border-border"] {
+  border-color: oklch(0.28 0.02 260) !important;
+}
+
+/* Strikethrough completed lessons stay dimmer */
+.light main .line-through {
+  color: oklch(0.52 0.02 260) !important;
+}
+
+/* Expanded panels */
+.light main .rounded-2xl.border.backdrop-blur {
+  background: oklch(0.17 0.014 260 / 0.95) !important;
+  color: oklch(0.93 0.01 260) !important;
+  border-color: oklch(0.28 0.02 260) !important;
+}
+.light main .rounded-2xl.border.backdrop-blur * {
+  color: oklch(0.93 0.01 260);
+}
+
+/* Keep brand accent colors (cyan, yellow, green) — override the wildcard * */
+.light main [style*="color: oklch(0.82 0.15 200)"],
+.light main [style*="color: oklch(0.75 0.2 145)"],
+.light main [style*="color: oklch(0.82 0.18 90)"],
+.light main [style*="color: oklch(0.65 0.22 305)"] {
+  color: inherit !important;
+}
